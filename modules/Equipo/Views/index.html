@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkbox Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="myForm">
+        <label><input type="checkbox" name="option" value="1"> Option 1</label>
+        <label><input type="checkbox" name="option" value="2"> Option 2</label>
+        <label><input type="checkbox" name="option" value="3"> Option 3</label>
+    </form>
+    <button id="getValues">Get Selected Values</button>
+
+    <script>
+        $(document).ready(function() {
+            // Crear un arreglo para almacenar los valores de los checkboxes
+            var selectedValues = [];
+
+            // Recorrer todos los checkboxes y agregar sus valores al arreglo si están seleccionados
+            $('input[type="checkbox"]:checked').each(function() {
+                selectedValues.push($(this).val());
+            });
+
+            // Imprimir los valores seleccionados en la consola (puedes adaptarlo a tus necesidades)
+            console.log("Valores seleccionados al cargar la página: ", selectedValues);
+
+            // Evento para actualizar los valores seleccionados al hacer clic en el botón
+            $('#getValues').click(function() {
+                selectedValues = [];
+                $('input[name="option"]:checked').each(function() {
+                    selectedValues.push($(this).val());
+                });
+                alert("Selected values: " + selectedValues.join(", "));
+            });
+        });
+    </script>
+</body>
+</html>

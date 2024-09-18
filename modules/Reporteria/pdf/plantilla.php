@@ -11,21 +11,7 @@
 	        $this->Cell(300, 30, "", 0, 1, 'R', true);
 
             // coordenadas(x,y para posicionamiento)
-            $this->SetXY(68,7);
-            $this->SetFillColor(232,232,232);
-            $this->SetFont('Arial','B',14);
-            $this->Cell(50,10, utf8_decode('Fundación COHONDUCAFE'));
-            
-            $this->Ln(4);
-            $this->SetXY(58,12);
-            $this->SetFont('Arial','B',11.5);
-            $this->Cell(195,10,'Departamento de Tecnologia de Informacion');
-            
-        
-            $this->SetXY(84,17);
-            $this->SetFont('Arial','B',10);
-            $this->Cell(195,10,utf8_decode('REPIT-001'));   
-            $this->Ln();
+  
 
             // Fecha y hora generada por el reporte
 	        // $this->SetFont('Arial','B',10);
@@ -45,8 +31,7 @@
 	        // $this->MultiCell(60,8,utf8_decode($hora)); 
             
 	        // Logotipo (espacio esquina izquierda, superior, ancho, alto)
-			$this->Image('../../../assets/img/logo.png', 10, 10, 30,10 );
-   /*          $this->Image('../../../assets/img/usuario.png', 160, 3, 45,25 ); */
+			$this->Image('../../../assets/img/logo.png', 60, 8, 90, );
             $this->Ln();
         }
 		

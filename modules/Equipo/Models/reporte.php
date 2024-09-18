@@ -28,7 +28,7 @@ class mdlReportes
     {
         $sql = "SELECT 
         a.asignacionID,
-         e.codigoSAP,
+        e.codigoSAP,
         em.nombreCompleto AS Asignado,
 		em.codigoEmpleado,
 		a.fechaAsignacion,

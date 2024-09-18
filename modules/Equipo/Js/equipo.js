@@ -25,35 +25,35 @@ $(document).ready(function () {
     var checkboxes = $('#proyectosPrint input[type="checkbox"]:checked');
 
     checkboxes.each(function () {
-        selectedValues.push($(this).val());
+      selectedValues.push($(this).val());
     });
 
     // Verifica si no hay ningún checkbox seleccionado
     if (selectedValues.length === 0) {
-        // Muestra un mensaje de alerta usando SweetAlert2
-        Swal.fire({
-            title: 'Ups',
-            text: 'Debe seleccionar al menos un proyecto',
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-        });
+      // Muestra un mensaje de alerta usando SweetAlert2
+      Swal.fire({
+        title: "Ups",
+        text: "Debe seleccionar al menos un proyecto",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
     } else {
-        let ids = selectedValues.join(", ");
+      let ids = selectedValues.join(", ");
 
-        // Lógica para abrir el reporte
-        const url = `./modules/Equipo/reports/EquipoGeneral.php?ids=${ids}`;
+      // Lógica para abrir el reporte
+      const url = `./modules/Equipo/reports/EquipoGeneral.php?ids=${ids}`;
 
-        // Abre la URL en una nueva ventana/pestaña
-        window.open(url, '_blank');
+      // Abre la URL en una nueva ventana/pestaña
+      window.open(url, "_blank");
     }
-});
-
+  });
 
   // -------------------------- TABLA ASIGNACIONES--------------------------
   $("#TablaAsignaciones").on("click", "button", function () {
     // Obtener el id que trae el botón
     let id = $(this).attr("data-id");
     idRegistro = id;
+    console.log(id);
     // Obtener la acción a realizar
     let accion = $(this).attr("name");
 
@@ -63,8 +63,11 @@ $(document).ready(function () {
       // Llamamos a la alerta para eliminar
       eliminarAsignacion(id);
     } else if (accion == "registro-imprimir") {
+      
       const url = `./modules/Equipo/reports/custodios.php?id=${id}`;
-      window.open(url);
+      window.location.href = url;
+    }else if (accion == "registro-imprimirPDF") {
+      window.open("./modules/Equipo/reports/custodioPDF.php?id="+id, "_blank");
     }
   }); // -------------------------- TABLA --------------------------
   $("#TablaDisponibles2").on("click", "button", function () {
@@ -154,8 +157,8 @@ $(document).ready(function () {
     let precio2 = $("#precio2").val();
     let modelo2 = $("#modelo2").val();
     let proyecto2 = $("#proyecto2").val();
-    let proveedores2 = $('#proveedor2').val();
-    let estado = $('#estado').val();
+    let proveedores2 = $("#proveedor2").val();
+    let estado = $("#estado").val();
 
     let losDatos2 = {
       id: id,
@@ -172,21 +175,20 @@ $(document).ready(function () {
       estado: estado,
     };
 
-      editarEquipo(losDatos2) ;
-
+    editarEquipo(losDatos2);
   });
 
-  $("btnNuevoEquipo").on("click",function(){
-    $('#ExtralargeModal').modal('show');
+  $("btnNuevoEquipo").on("click", function () {
+    $("#ExtralargeModal").modal("show");
     $("#btnEditarLinea").hide();
     $("#btnGuardarLinea").show();
-    $('#numeroLinea').val('');
-    $('#codigoProyecto').val('').trigger('change');
-    $('#fechaActivacion').val('');
-    $('#fechaRenovacion').val('');
-    $('#marca').val(-1).trigger('change');
-    $('#modelo').val(-1).trigger('change');
-    $('#Imei').val('');
+    $("#numeroLinea").val("");
+    $("#codigoProyecto").val("").trigger("change");
+    $("#fechaActivacion").val("");
+    $("#fechaRenovacion").val("");
+    $("#marca").val(-1).trigger("change");
+    $("#modelo").val(-1).trigger("change");
+    $("#Imei").val("");
   });
 
   // evento click del botón guardar
@@ -200,7 +202,7 @@ $(document).ready(function () {
     let precio2 = $("#precio2").val();
     let modelo2 = $("#modelo2").val();
     let proyecto2 = $("#proyecto2").val();
-    let proveedores2 = $('#proveedor2').val();
+    let proveedores2 = $("#proveedor2").val();
 
     let losDatos2 = {
       categoria2: categoria2,
@@ -212,9 +214,8 @@ $(document).ready(function () {
       marca2: marca2,
       modelo2: modelo2,
       proyecto2: proyecto2,
-      proveedores2: proveedores2
+      proveedores2: proveedores2,
     };
-  
 
     // Validación de campos
     if (categoria2 == -1 || categoria2.length <= 0) {
@@ -238,15 +239,14 @@ $(document).ready(function () {
         "warning"
       );
       return; // Detiene la ejecución si la validación falla
-    } 
-    else if (proveedores2 == -1 || proveedores2.length <= 0) {
+    } else if (proveedores2 == -1 || proveedores2.length <= 0) {
       Swal.fire(
         "Ups",
         "Parece que no has ingresado un proveedor, por favor ingresa un modelo.",
         "warning"
       );
       return; // Detiene la ejecución si la validación falla
-    }else if (precio2 <= 0 || precio2.length <= 0) {
+    } else if (precio2 <= 0 || precio2.length <= 0) {
       Swal.fire(
         "Ups",
         "Parece que no has ingresado un precio valido, por favor intenta de nuevo.",
@@ -274,13 +274,13 @@ $(document).ready(function () {
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, proceder",
-        cancelButtonText: "No, cancelar"
+        cancelButtonText: "No, cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           // Obtener el valor del campo serie
-          let serie = document.getElementById('serie2').value;
+          let serie = document.getElementById("serie2").value;
           // Obtener el campo de texto codigoSAP y agregar el texto concatenado
-          let codigoSAP =("TEMP-"+serie);
+          let codigoSAP = "TEMP-" + serie;
 
           $("#sap2").val(codigoSAP);
         } else {
@@ -327,17 +327,16 @@ $(document).ready(function () {
     const valor = $("#proyecto2").val();
   });
 
-    // Select para modales
-    $('.Select2Modal1').select2({
-      width: "100%",
-      dropdownParent: $('#nuevoEquipo'),
-    });
-  
-    $('.Select2Modal').select2({
-      width: "100%",
-      dropdownParent: $('#modalEquiposAsignacion'),
-    });
+  // Select para modales
+  $(".Select2Modal1").select2({
+    width: "100%",
+    dropdownParent: $("#nuevoEquipo"),
+  });
 
+  $(".Select2Modal").select2({
+    width: "100%",
+    dropdownParent: $("#modalEquiposAsignacion"),
+  });
 });
 
 function guardarDatos(losDatos) {
@@ -358,13 +357,11 @@ function guardarDatos(losDatos) {
       console.log(resp);
 
       if (resp[0].status == "200") {
-        swal.fire(
-          "Excelente",
-          "Asignación registrada correctamente",
-          "success"
-        ).then(() => {
-          window.location.href ='?module=equipo';
-        });     
+        swal
+          .fire("Excelente", "Asignación registrada correctamente", "success")
+          .then(() => {
+            window.location.href = "?module=equipo";
+          });
       } else if (resp[0] == "42000") {
         swal.fire(
           "Ups",
@@ -394,7 +391,6 @@ function guardarNuevoEquipo(losDatos2) {
       console.log(respuesta);
       const resp = JSON.parse(respuesta);
 
-
       if (resp[0].status == "200") {
         swal.fire("Excelente", "Equipo registrado correctamente", "success");
       } else if (resp[0] == "42000") {
@@ -412,14 +408,14 @@ function guardarNuevoEquipo(losDatos2) {
   });
 }
 function editarCarga(id) {
-  $("#nuevoEquipo").modal('show');
+  $("#nuevoEquipo").modal("show");
   cargarEquipo(id);
 }
 
 function cargarEquipo(id) {
   $.ajax({
-    type: 'POST',
-    url: './modules/Equipo/Controllers/cargarEquipo.php',
+    type: "POST",
+    url: "./modules/Equipo/Controllers/cargarEquipo.php",
     data: {
       id: id,
     },
@@ -432,25 +428,24 @@ function cargarEquipo(id) {
       $("#btnEditarEquipo").show();
       $("#btnEquipo").hide();
 
-      $('#idEditarEquipo').val(id);
+      $("#idEditarEquipo").val(id);
 
-      $('#categoria2').val(datos[0].categoriaID).trigger('change');
-      $('#marca2').val(datos[0].marcaID).trigger('change');
-      $('#modelo2').val(datos[0].modeloID).trigger('change');
-      $('#proveedor2').val(datos[0].proveedorID).trigger('change');
-      $('#precio2').val(datos[0].precioAdquisicion);
-      $('#fecha2').val(datos[0].fechaAdquisicion);
-      $('#proyecto2').val(datos[0].proyectoID).trigger('change');
-      $('#descripcion2').val(datos[0].descripcionGeneral);
-      $('#serie2').val(datos[0].serie);
-      $('#sap2').val(datos[0].codigoSAP);
-      $('#estado').val(datos[0].estadoID).trigger('change');
-      
-    }
+      $("#categoria2").val(datos[0].categoriaID).trigger("change");
+      $("#marca2").val(datos[0].marcaID).trigger("change");
+      $("#modelo2").val(datos[0].modeloID).trigger("change");
+      $("#proveedor2").val(datos[0].proveedorID).trigger("change");
+      $("#precio2").val(datos[0].precioAdquisicion);
+      $("#fecha2").val(datos[0].fechaAdquisicion);
+      $("#proyecto2").val(datos[0].proyectoID).trigger("change");
+      $("#descripcion2").val(datos[0].descripcionGeneral);
+      $("#serie2").val(datos[0].serie);
+      $("#sap2").val(datos[0].codigoSAP);
+      $("#estado").val(datos[0].estadoID).trigger("change");
+    },
   });
 }
 
-function editarEquipo(losDatos){
+function editarEquipo(losDatos) {
   $.ajax({
     type: "POST",
     url: "./modules/Equipo/controllers/editarEquipo.php",
@@ -463,16 +458,16 @@ function editarEquipo(losDatos){
     },
     // Petición exitosa
     success: function (respuesta) {
-         const resp = JSON.parse(respuesta); 
-/*         console.log("Respuesta parseada:", respuesta); */
+      const resp = JSON.parse(respuesta);
+      /*         console.log("Respuesta parseada:", respuesta); */
 
-        // console(resp[0].status)
-    
-        if (resp[0].status == "200") {
-          swal.fire("Equipo", "Equipo Editado Correctamente", "success");
-        } else {
-          swal.fire("Verifica los campos", resp.message, "warning");
-        }
+      // console(resp[0].status)
+
+      if (resp[0].status == "200") {
+        swal.fire("Equipo", "Equipo Editado Correctamente", "success");
+      } else {
+        swal.fire("Verifica los campos", resp.message, "warning");
+      }
     },
   });
 }
@@ -558,7 +553,6 @@ function listarEquipo() {
           className: "text-left",
 
           render: function (data, types, full, meta) {
-           
             let btnEliminar = `<button data-id2 = ${full.equipoID} name="registro-baja" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Cambiar estado">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
@@ -609,7 +603,7 @@ function listarTodo() {
           render: function (data, types, full, meta) {
             let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor" onclick="editarCarga(${full.equipoID})">
                                     <i class="fas fa-pencil-alt"></i>
-                                  </button>`;  
+                                  </button>`;
             let btnAsignar = `<button data-id2 = ${full.equipoID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Asignar este equipo">
                                     <i class="bi bi-box-arrow-in-down-right"></i>
                                   </button>`;
@@ -681,13 +675,16 @@ function listarAsignaciones() {
           className: "text-left",
           width: 5,
           render: function (data, types, full, meta) {
-            let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                      <i class="bx bxs-printer"></i>
+            let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="">
+                                      <i class="ri-file-excel-2-fill"></i>
+                                    </button>`;
+            let btnImprimirPDF = `<button data-id = ${full.asignacionID} name="registro-imprimirPDF" class="btn btn-outline-warning" type="button" data-toggle="tooltip" data-placement="top" title="Imprimir en pdf">
+                                      <i class="bx bxs-file-pdf"></i>
                                     </button>`;
             let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
-            return ` ${btnImprimir} ${btnEliminar}`;
+            return ` ${btnImprimir} ${btnImprimirPDF}  ${btnEliminar}`;
           },
         },
       ];
@@ -791,8 +788,8 @@ function eliminarAsignacion(id) {
               text: `${datos[0].mensaje}`,
               confirmButtonColor: "#3085d6",
             }).then(() => {
-              window.location.href ='?module=equipo';
-            });     
+              window.location.href = "?module=equipo";
+            });
 
             // Actualizar los datos en tabla
             listarAsignaciones();
@@ -852,8 +849,8 @@ function mandarBaja(id) {
               text: `${datos[0].mensaje}`,
               confirmButtonColor: "#3085d6",
             }).then(() => {
-              window.location.href ='?module=equipo';
-            });             
+              window.location.href = "?module=equipo";
+            });
             // Actualizar los datos en tabla
             listarAsignaciones();
           }

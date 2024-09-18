@@ -28,12 +28,12 @@ $excel->getActiveSheet()->setCellValue('H12',$asignaciones[0]['fechaAsignacion']
 $excel->getActiveSheet()->setCellValue('B16',utf8_decode($asignaciones[0]['ingreso']));
 $excel->getActiveSheet()->setCellValue('E16',$asignaciones[0]['cargo']);
 $excel->getActiveSheet()->setCellValue('H16',$asignaciones[0]['proyectoEmpleado']);
-$excel->getActiveSheet()->setCellValue('C4',utf8_decode($asignaciones[0]['serie']));
+$excel->getActiveSheet()->setCellValue('C24',utf8_decode($asignaciones[0]['serie']));
 $excel->getActiveSheet()->setCellValue('G24',utf8_decode($asignaciones[0]['nombreMarca']));
 $excel->getActiveSheet()->setCellValue('C26',utf8_decode($asignaciones[0]['nombreModelo']));
 $excel->getActiveSheet()->setCellValue('G26',utf8_decode($asignaciones[0]['codigoSAP']));
 $excel->getActiveSheet()->setCellValue('G28',utf8_decode($asignaciones[0]['precioAdquisicion']));
-$excel->getActiveSheet()->setCellValue('C28',utf8_decode($asignaciones[0]['proyectoEquipo']));
+$excel->getActiveSheet()->setCellValue('C28',($asignaciones[0]['proyectoEquipo']));
 $excel->getActiveSheet()->setCellValue('C30',utf8_decode($asignaciones[0]['descripcionGeneral']));
 $excel->getActiveSheet()->setCellValue('C33',utf8_decode($asignaciones[0]['observaciones']));
 
